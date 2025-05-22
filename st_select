@@ -1,0 +1,16 @@
+import streamlit as st
+
+# List of (label, value) pairs
+options = [("Option 1", "value1"), ("Option 2", "value2"), ("Option 3", "value3")]
+
+# Extract just the labels for the selectbox
+labels = [label for label, value in options]
+
+# Set default index to 0 (first item)
+selected_label = st.selectbox("Choose an option", labels, index=0)
+
+# Find the corresponding value
+selected_value = dict(options)[selected_label]
+
+st.write("Selected label:", selected_label)
+st.write("Selected value:", selected_value)
