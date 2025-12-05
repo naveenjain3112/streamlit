@@ -1,0 +1,77 @@
+import json
+import requests
+import streamlit as st
+import streamlit.components.v1 as components
+
+st.set_page_config(page_title="API Caller", page_icon="🔌")
+
+st.title("Backend API Caller with Copy Button")
+
+# --- State init ---
+if "api_response_text" not in st.session_state:
+    st.session_state["api_response_text"] = ""
+
+# --- Inputs ---
+api_url = st.text_input(
+    "Backend API URL",
+    value="https://jsonplaceholder.typicode.com/posts/1",  # demo URL, change to your backend
+)
+
+method = st.selectbox("HTTP Method", ["GET", "POST"])
+
+request_body = st.text_area(
+    "Request Body (for POST, JSON format)",
+    value='{"sample": "data"}',
+    height=100,
+)
+
+# --- Call API ---
+if st.button("Call API"):
+    try:
+        if method == "GET":
+            response = requests.get(api_url, timeout=10)
+        else:
+            # Parse JSON safely
+            data = json.loads(request_body) if request_body.strip() else {}
+            response = requests.post(api_url, json=data, timeout=10)
+
+        st.session_state["api_response_text"] = response.text
+
+        st.write("**Status code:**", response.status_code)
+
+    except json.JSONDecodeError:
+        st.error("Request body is not valid JSON.")
+    except Exception as e:
+        st.error(f"Error calling API: {e}")
+
+# --- Show response + Copy button ---
+response_text = st.session_state.get("api_response_text", "")
+
+if response_text:
+    st.subheader("API Response")
+    # Show nicely
+    st.code(response_text, language="json")
+
+    # Copy-to-clipboard button using a small HTML + JS snippet
+    components.html(
+        f"""
+        <script>
+        function copyToClipboard() {{
+            const text = {json.dumps(response_text)};
+            navigator.clipboard.writeText(text)
+                .then(() => {{
+                    const el = document.getElementById("copy-status");
+                    if (el) {{
+                        el.innerText = "Copied!";
+                        setTimeout(() => el.innerText = "", 1500);
+                    }}
+                }});
+        }}
+        </script>
+        <button onclick="copyToClipboard()">
+            Copy response to clipboard
+        </button>
+        <span id="copy-status" style="margin-left:8px;color:green;font-weight:bold;"></span>
+        """,
+        height=60,
+    )
