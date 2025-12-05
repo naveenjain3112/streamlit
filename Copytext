@@ -1,0 +1,76 @@
+import json
+import requests
+import streamlit as st
+import streamlit.components.v1 as components
+
+st.set_page_config(page_title="API Caller", page_icon="🔌")
+
+st.title("Backend API Caller with Copy Button (Right Aligned)")
+
+# --- State init ---
+if "api_response_text" not in st.session_state:
+    st.session_state["api_response_text"] = ""
+
+# --- Inputs ---
+api_url = st.text_input(
+    "Backend API URL",
+    value="https://jsonplaceholder.typicode.com/posts/1",
+)
+
+method = st.selectbox("HTTP Method", ["GET", "POST"])
+
+request_body = st.text_area(
+    "Request Body (for POST, JSON format)",
+    value='{"sample": "data"}',
+    height=100,
+)
+
+# --- Call API ---
+if st.button("Call API"):
+    try:
+        if method == "GET":
+            response = requests.get(api_url, timeout=10)
+        else:
+            data = json.loads(request_body) if request_body.strip() else {}
+            response = requests.post(api_url, json=data, timeout=10)
+
+        st.session_state["api_response_text"] = response.text
+        st.write("**Status code:**", response.status_code)
+
+    except json.JSONDecodeError:
+        st.error("Request body is not valid JSON.")
+    except Exception as e:
+        st.error(f"Error calling API: {e}")
+
+# --- Show response + Right aligned Copy Button ---
+response_text = st.session_state.get("api_response_text", "")
+
+if response_text:
+    st.subheader("API Response")
+
+    # Right-aligned button using flexbox
+    components.html(
+        f"""
+        <div style="display:flex; justify-content:flex-end; margin-bottom:4px;">
+            <button 
+                onclick="copyToClipboard()" 
+                style="padding:6px 12px; cursor:pointer;"
+            >
+                Copy Response
+            </button>
+        </div>
+
+        <script>
+        function copyToClipboard() {{
+            const text = {json.dumps(response_text)};
+            navigator.clipboard.writeText(text).then(() => {{
+                console.log("Copied!");
+            }});
+        }}
+        </script>
+        """,
+        height=60,
+    )
+
+    # Show response box
+    st.code(response_text, language="json")
