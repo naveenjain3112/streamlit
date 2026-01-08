@@ -1,0 +1,136 @@
+Rasa has crossed 50 million plus downloads, which clearly shows strong global demand and trust in the platform. Along with this, more than 1,000 companies actively use Rasa in production. This includes startups, mid-size organizations, and large enterprises that need full control over their conversational AI systems.
+From a community perspective, Rasa has 15,000+ community members and 750+ open-source contributors. This is very important because it means the platform is continuously improving, security issues are addressed quickly, and new features are driven by real industry needs. The 20,000+ GitHub stars further indicate strong developer confidence and popularity in the open-source ecosystem.
+Now, if we look at industry adoption, Rasa is not limited to one domain.
+In Banking and Finance, it is used for customer support, account queries, KYC assistance, and compliance-friendly conversational flows.
+In Healthcare, organizations use Rasa for appointment scheduling, symptom triaging, and patient engagement while maintaining data privacy.
+In E-commerce, Rasa powers product discovery, order tracking, returns, and personalized shopping experiences.
+And in Telecom and Travel, it is commonly used for plan recommendations, ticket booking, disruption handling, and customer self-service.
+Another strong indicator of scale is that Rasa-based systems have already processed 25 million plus conversations. This proves that Rasa NLU is not just a POC or demo tool, but a battle-tested platform capable of handling high-volume, real-time conversations.
+
+
+
+
+
+
+
+Below is 2–3 minute, read-and-speak material in simple English, similar in style to your previous content.
+You can read this directly during the presentation.
+Whitespace Tokenizer and Regex Featurizer in Rasa NLU – 2–3 Minute Speech
+Today I will explain two important components of Rasa NLU:
+Whitespace Tokenizer and Regex Featurizer.
+These components help Rasa prepare and enrich user text before intent classification and entity extraction happen.
+Whitespace Tokenizer – Breaking Text into Words
+The Whitespace Tokenizer is responsible for splitting the user message into tokens, or words.
+It works in a very simple way.
+It breaks the sentence based on spaces, also called whitespaces.
+For example, if the user says:
+“I want to onboard to the Malts platform in UAT”
+The Whitespace Tokenizer converts this into tokens like:
+I
+want
+to
+onboard
+Malts
+platform
+UAT
+These tokens are then passed to models like DIET Classifier for understanding intent and entities.
+Whitespace Tokenizer is:
+Fast
+Simple
+Easy to maintain
+Very effective for English and similar languages
+In simple words, Whitespace Tokenizer prepares the raw text so that the NLU model can understand it properly.
+Regex Featurizer – Detecting Patterns in Text
+Next is the Regex Featurizer.
+The Regex Featurizer helps Rasa detect specific patterns in user messages using regular expressions, also called regex.
+It does not extract entities directly.
+Instead, it adds signals or features that help the NLU model make better predictions.
+For example:
+Environment names like UAT, DEV, PROD
+IDs like ticket numbers
+Fixed formats like email IDs or application codes
+If the user says:
+“I want to onboard to Malts in UAT”
+The Regex Featurizer identifies UAT using a predefined regex pattern and tells the NLU model that this word matches an environment pattern.
+This makes intent classification and entity extraction more accurate, especially when:
+Values follow a fixed format
+Domain-specific keywords are important
+In simple words, Regex Featurizer acts like a hint system for the NLU model.
+How They Work Together
+Whitespace Tokenizer breaks the sentence into words
+Regex Featurizer highlights important patterns in those words
+These features are then used by models like DIET Classifier
+Together, they improve:
+Accuracy
+Consistency
+Understanding of domain-specific terms
+Final Summary
+To summarize:
+Whitespace Tokenizer splits the user message into tokens
+Regex Featurizer identifies important patterns using regex
+Both help Rasa understand user input better and faster
+They make the NLU pipeline stronger and more reliable
+Thank you.
+If you want, I can:
+Convert this into 1 PPT slide
+Add a simple tokenizer + regex diagram
+Make it more technical or more business-friendly
+Just tell me 👍
+
+
+
+
+
+
+Here is the same 3-minute speaking material, with only the example changed, exactly as you requested.
+Language, flow, and timing remain the same — you can read it directly.
+DIET Classifier and TED Policy in Rasa – 3-Minute Speech
+Today I will explain DIET Classifier and TED Policy in Rasa.
+These are the two main components that make a Rasa chatbot intelligent and conversational.
+DIET Classifier – Understanding the User
+DIET stands for Dual Intent and Entity Transformer.
+The DIET Classifier is responsible for understanding the user message.
+It does two tasks at the same time:
+Intent classification, meaning what the user wants
+Entity extraction, meaning important values like platform name or environment
+DIET is based on a Transformer architecture, which is the same core idea used in models like BERT.
+Because of this, DIET understands the context and meaning of a sentence instead of only matching keywords.
+For example, when a user says:
+“I want to onboard to the Malts platform in the UAT environment”
+DIET understands:
+Intent: onboard_platform
+Entities: platform = Malts, environment = UAT
+Since DIET uses embeddings and transformer layers, it works well even with less training data, gives high accuracy, and keeps the NLU pipeline simple and fast.
+In simple words, DIET is the brain that understands what the user is saying.
+TED Policy – Deciding the Response
+TED stands for Transformer Embedding Dialogue policy.
+While DIET understands the message, TED decides what the chatbot should do next.
+TED is also based on Transformer models, similar to BERT-like architectures, but it is used for conversation flow, not language understanding.
+TED looks at:
+Current user intent
+Extracted entities
+Conversation history
+Stored information called slots
+Previous bot actions
+Using transformer-based embeddings, TED understands the full conversation context, not just the last message.
+For example:
+User: “I want to onboard to the Malts platform”
+Bot: “Which environment do you want to onboard to?”
+User: “UAT”
+TED remembers the context and correctly decides the next response or action, such as
+starting the onboarding process for Malts in UAT.
+Because of this, TED handles multi-step and complex conversations smoothly and reduces the need for hard-coded rules.
+In simple words, TED is the brain that decides the next response.
+Final Summary
+To summarize:
+DIET Classifier uses Transformer and BERT-like concepts to understand user intent and entities
+TED Policy uses Transformer-based embeddings to manage conversation flow
+DIET understands what the user says
+TED decides what the bot should say next
+Together, DIET and TED make the Rasa chatbot smart, scalable, and human-like.
+Thank you.
+If you want next:
+A diagram using Malts onboarding flow
+A 1-slide executive version
+A demo conversation script
+Just tell me 👍
