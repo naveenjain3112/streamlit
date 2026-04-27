@@ -1,0 +1,67 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Architecture">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Clients -->
+        <mxCell id="clients" value="Clients&#xa;(Users / Applications)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;" vertex="1" parent="1">
+          <mxGeometry x="40" y="200" width="160" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- F5 -->
+        <mxCell id="f5" value="F5 LTM&#xa;(Load Balancer)&#xa;&#xa;- Load Balancing&#xa;- High Availability" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="260" y="180" width="200" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- APISIX -->
+        <mxCell id="apisix" value="APISIX Gateway&#xa;&#xa;Routing: Host + Path&#xa;Security + Plugins&#xa;Observability" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="520" y="180" width="220" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- DSP-HUB -->
+        <mxCell id="dsp" value="DSP-HUB Platform&#xa;/dspui&#xa;/mlflow&#xa;/rag" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;" vertex="1" parent="1">
+          <mxGeometry x="820" y="80" width="200" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- MALTS -->
+        <mxCell id="malts" value="MALTS Platform&#xa;/ct&#xa;/rag&#xa;/mlflow" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="820" y="240" width="200" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- SIP -->
+        <mxCell id="sip" value="SIP Platform&#xa;/mlflow&#xa;/ct&#xa;/rag" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;" vertex="1" parent="1">
+          <mxGeometry x="820" y="400" width="200" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows -->
+        <mxCell id="c1" edge="1" parent="1" source="clients" target="f5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="c2" edge="1" parent="1" source="f5" target="apisix">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="c3" edge="1" parent="1" source="apisix" target="dsp">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="c4" edge="1" parent="1" source="apisix" target="malts">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="c5" edge="1" parent="1" source="apisix" target="sip">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- URLs -->
+        <mxCell id="urls" value="Example URLs&#xa;dsp-hub.bankofamerica.com&#xa;malts-dsp.bankofamerica.com&#xa;sip.bankofamerica.com" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="320" width="200" height="120" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
